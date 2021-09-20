@@ -136,7 +136,7 @@ n2  1      0     0
 n3  0      1     0
     
 </pre>
-We can encode this as the bitstring 011101010.
+We can encode this as the bitstring 011100010.
 <br /><br />
 
 To begin, run the GA with the nursing problem on a simple example to
@@ -148,18 +148,18 @@ same number of nurses as shifts).
 <br />
 We can run this like so:
 <pre>
->>> import ga
->>> import nurseFitness
->>> n=nurseFitness.nurseProblem(5,5)
->>> n.addConstraint(nurseFitness.oneNursePerShift)
->>> n.addConstraint(nurseFitness.oneShiftEach)
->>> g=ga.GA(nurseFitness.nurseFitness, 20, 100, 0.1, 26, 0.1, n)
->>> g.runGA()
+
+n = NurseSchedulingProblem.nurseSchedulingProblem(3,3)
+n.addConstraint(NurseSchedulingProblem.oneNursePerShift)
+class mySolver(GA.GA, Elitism.DeterministicElites, Crossover.OnePointStringCrossover, Selector.RouletteSelector):
+...     pass
+m=mySolver(n)
+
 </pre>
-This will create a nurseProblem with 5 nurses and 5 shifts, attach the
-two constraints, and then run the GA with a population of 20
-individuals for 100 iterations, with elitism and mutationRate of 0.1
-and a string length of 26.
+This will create a nurseProblem with 3 nurses and 3 shifts, attach the
+oneNursePerShift constraint, and run the GA with the default parameters: population of 100
+individuals for 100 iterations, with elitism=0.2 and mutationRate of 0.0.5
+
 
 Your job is to code some more interesting constraints for a larger
 problem. Here are the parameters:
